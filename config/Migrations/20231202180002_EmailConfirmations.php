@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
+use Phinx\Util\Literal;
 use Migrations\AbstractMigration;
 
-class CreateRole extends AbstractMigration
+class EmailConfirmations extends AbstractMigration
 {
     /**
      * Change Method.
@@ -16,23 +17,14 @@ class CreateRole extends AbstractMigration
      */
     public function change(): void
     {
-        $table = $this->table('roles');
+        $table = $this->table('verifications');
         $table
-            ->addColumn('name', 'string', [
-                'limit' => 50,
-                'null'  => false,
-            ])
-            ->addColumn('description', 'string', [
-                'limit' => 100,
-            ])
+            ->addColumn('email', 'string')
+            ->addColumn('verify_token', 'string')
             ->addColumn('created', 'datetime', [
                 'default' => null,
                 'null'    => false,
             ])
-            ->addColumn('modified', 'datetime', [
-                'default' => null,
-                'null'    => false,
-            ]);
-        $table->create();
+            ->create();
     }
 }
